@@ -1,0 +1,6 @@
+npm i express
+npm i dotenv
+npm i cors
+npm install mongoose
+npm install express-validator
+npm install jsonwebtoken
