@@ -28,7 +28,7 @@ router.post('/',[
 
 // Update User
 router.put('/:userId',[
-    //validateJWT,
+    validateJWT,
     check('userId','Id is not valid').isMongoId(),
     check('userId').custom(userExistsById),
     validateFields
@@ -37,7 +37,7 @@ router.put('/:userId',[
 
 // Delete user by Id
 router.delete('/:userId',[
-    //validateJWT,
+    validateJWT,
     check('userId','Id is not valid').isMongoId(),
     check('userId').custom(userExistsById),
     validateFields

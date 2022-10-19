@@ -40,6 +40,8 @@ const updateUserById = (req, res = response ) =>{
 }
 
 const deleteUserById = async(req, res = response ) =>{
+    console.log(req.user)
+
     const userAuth = req.user;
     const user = await User.findByIdAndDelete(userAuth.id);
 
