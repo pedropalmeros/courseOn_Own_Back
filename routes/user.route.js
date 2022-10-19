@@ -6,11 +6,13 @@ const { createNewUser }     = require('../controllers/user.controller');
 const { updateUserById }    = require('../controllers/user.controller'); 
 const { deleteUserById }    = require('../controllers/user.controller');
 
-const { validateFields } = require ('../middlewares/validateFields');
-const { validateJWT }    = require ('../middlewares/validateJWT');
+const { validateFields }  = require ('../middlewares/validateFields');
+const { validateJWT }     = require ('../middlewares/validateJWT');
+const { compareUserIdJWT} = require ('../middlewares/validateJWT');
 
 const { emailExists }    = require ('../helpers/dataBaseValidators'); 
 const { userExistsById } = require ('../helpers/dataBaseValidators');
+const { sameUser }       = require ('../helpers/dataBaseValidators');
 
 
 const router = Router();
@@ -31,6 +33,7 @@ router.put('/:userId',[
     validateJWT,
     check('userId','Id is not valid').isMongoId(),
     check('userId').custom(userExistsById),
+    check('userId').custom(sameUser),
     validateFields
 ],updateUserById);
 
@@ -40,6 +43,7 @@ router.delete('/:userId',[
     validateJWT,
     check('userId','Id is not valid').isMongoId(),
     check('userId').custom(userExistsById),
+    check('userId').custom(sameUser),
     validateFields
 ],deleteUserById);
 

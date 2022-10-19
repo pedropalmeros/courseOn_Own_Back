@@ -1,4 +1,5 @@
-const User = require('../models/user')
+const User = require('../models/user');
+const {request, response } = require('express-validator');
 //const Category = require('../models/categories')
 
 
@@ -16,6 +17,18 @@ const userExistsById = async(userId) =>{
     }
 }
 
+
+const  sameUser = (value, {req, location,path}) =>{
+    console.log("value: ", value);
+    console.log("req.user", req.user._id.toString());
+    if (!(value == req.user._id.toString())){
+        throw new Error('You do not have the permisions to perform the request')
+    }
+    else{
+        return true;
+    }
+}
+
 //const categoryExistsById = async(categoryId) =>{
 //    const availableCategory = await Category.findById(categoryId);
 //    if(!availableCategory){
@@ -25,6 +38,7 @@ const userExistsById = async(userId) =>{
 
 module.exports = {
     emailExists,
-    userExistsById
+    userExistsById,
+    sameUser
     //categoryExistsById
 }
