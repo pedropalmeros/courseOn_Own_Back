@@ -16,6 +16,10 @@ const CourseSchema = Schema({
     user:{
         type: Schema.Types.ObjectId,
         ref: 'User'
+    },
+    enrolledStudents:{
+        type: Number,
+        default: 0
     }
 });
 

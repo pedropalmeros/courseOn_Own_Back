@@ -16,24 +16,22 @@ const validateJWT = async(req = request, res = response, next) =>{
     try{
         const {id} = jwt.verify(token,process.env.SECRETORPIRVATEKEY);
   
-       const user = await User.findById(id);
+        const user = await User.findById(id);
 
-       if( !user){
-        return res.status(401).json({
+        if( !user){
+            return res.status(401).json({
             msg: 'Invalid Token - user not in DB'
         })
-       }
+        }
 
 
-       if(!user.status){
-        return res.status(401).json({
+        if(!user.status){
+            return res.status(401).json({
             msg: 'Invalid Token - user status - false'
-        })
-       }
-       req.user = user;
-       next();
-
-        
+            })
+        }
+        req.user = user;
+        next();
    }
     catch(error){
         return res.status(400).json({
