@@ -2,7 +2,9 @@ const { response, request, json } = require('express');
 const bcryptjs = require('bcryptjs');
 
 const User = require('../models/user');
-const { generateJWT } = require('../helpers/generateWebToken');
+const { generateJWT }  = require('../helpers/generateWebToken');
+const { googleValidator } = require('../helpers/googleValidator');
+const user = require('../models/user');
 
 const login = async(req = request, res = response ) => {
     const {email, password} = req.body;
@@ -34,7 +36,6 @@ const login = async(req = request, res = response ) => {
             token
         });
     }catch(error){
-        console.log(error);
         return res.status(500).json({
             msg: "INTERNAL ERROR: Reach out the administrator",
             status: false
@@ -42,7 +43,46 @@ const login = async(req = request, res = response ) => {
     }
 }
 
+const googleSignIn = async (req,res = response) => {
+    const {id_token} = req.body;
+
+    try {
+        const {name,email,picture} = await googleValidator(id_token); 
+
+        let userGoogleAuth = await User.findOne({email});
+
+        if(!userGoogleAuth){
+            const data = {
+                name,
+                email,
+                password: 'not needed',
+                img: picture,
+                google: true
+            }
+
+            userGoogleAuth = new User(data);
+            await userGoogleAuth.save();
+        }
+
+        const token = await generarJWT( userGoogleAuth.id);
+
+        res.json({
+            userGoogleAuth,
+            token
+        });
+
+
+
+    } catch(error){
+        res.status(400).json({
+            status: false,
+            msg: 'Invalid Token'
+        })
+    }
+}
+
 
 module.exports = {
-    login
+    login,
+    googleSignIn
 }

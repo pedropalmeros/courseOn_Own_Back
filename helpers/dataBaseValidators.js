@@ -1,7 +1,5 @@
 const User = require('../models/user');
 const {request, response } = require('express-validator');
-//const Category = require('../models/categories')
-
 
 const emailExists = async(email = '') => {
     const availableEmail = await User.findOne({email});
@@ -17,10 +15,7 @@ const userExistsById = async(userId) =>{
     }
 }
 
-
 const  sameUser = (value, {req, location,path}) =>{
-    console.log("value: ", value);
-    console.log("req.user", req.user._id.toString());
     if (!(value == req.user._id.toString())){
         throw new Error('You do not have the permisions to perform the request')
     }
