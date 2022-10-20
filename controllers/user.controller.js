@@ -47,8 +47,6 @@ const deleteUserById = async(req, res = response ) =>{
         msg: 'delete USER - CONTROLLER',
         user
     })
-
-
 }
 
 

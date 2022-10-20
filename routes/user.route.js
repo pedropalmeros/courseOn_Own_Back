@@ -8,7 +8,6 @@ const { deleteUserById }    = require('../controllers/user.controller');
 
 const { validateFields }  = require ('../middlewares/validateFields');
 const { validateJWT }     = require ('../middlewares/validateJWT');
-const { compareUserIdJWT} = require ('../middlewares/validateJWT');
 
 const { emailExists }    = require ('../helpers/dataBaseValidators'); 
 const { userExistsById } = require ('../helpers/dataBaseValidators');

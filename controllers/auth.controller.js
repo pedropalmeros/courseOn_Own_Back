@@ -4,7 +4,6 @@ const bcryptjs = require('bcryptjs');
 const User = require('../models/user');
 const { generateJWT }  = require('../helpers/generateWebToken');
 const { googleValidator } = require('../helpers/googleValidator');
-const user = require('../models/user');
 
 const login = async(req = request, res = response ) => {
     const {email, password} = req.body;
@@ -62,20 +61,23 @@ const googleSignIn = async (req,res = response) => {
 
             userGoogleAuth = new User(data);
             await userGoogleAuth.save();
+
         }
 
-        const token = await generarJWT( userGoogleAuth.id);
+        const token = await generateJWT( userGoogleAuth.id);
 
         res.json({
             userGoogleAuth,
-            token
+            token,
+            success: true
         });
 
 
 
     } catch(error){
+        console.log(error);
         res.status(400).json({
-            status: false,
+            success: false,
             msg: 'Invalid Token'
         })
     }

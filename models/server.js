@@ -10,6 +10,7 @@ class Server{
         this.port = process.env.PORT;
         this.userPath = '/users';
         this.authPath = '/auth';
+        this.coursePath = '/courses';
 
         //Data Base connection
         this.dataBaseConnect();
@@ -44,8 +45,9 @@ class Server{
         //    res.send('Hello World');
         //});
 
-        this.app.use(this.userPath, require('../routes/user.route'));
-        this.app.use(this.authPath, require('../routes/auth.route'));
+        this.app.use(this.userPath,  require('../routes/user.route'));
+        this.app.use(this.authPath,  require('../routes/auth.route'));
+        this.app.use(this.coursePath,require('../routes/course.route'));
 
     }
 
