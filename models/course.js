@@ -20,6 +20,9 @@ const CourseSchema = Schema({
     enrolledStudents:{
         type: Number,
         default: 0
+    },
+    img:{
+        type: String,
     }
 });
 

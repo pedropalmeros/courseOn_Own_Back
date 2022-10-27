@@ -5,6 +5,7 @@ const { getAllUsers }       = require('../controllers/user.controller');
 const { createNewUser }     = require('../controllers/user.controller');
 const { updateUserById }    = require('../controllers/user.controller'); 
 const { deleteUserById }    = require('../controllers/user.controller');
+const { getUserById }       = require('../controllers/user.controller') 
 
 const { validateFields }  = require ('../middlewares/validateFields');
 const { validateJWT }     = require ('../middlewares/validateJWT');
@@ -35,6 +36,13 @@ router.put('/:userId',[
     check('userId').custom(sameUser),
     validateFields
 ],updateUserById);
+
+// GetUser By Id
+router.get('/:userId',[
+    check('userId','Id is not valid').isMongoId(),
+    check('userId').custom(userExistsById),
+    validateFields
+],getUserById);
 
 
 // Delete user by Id

@@ -42,7 +42,7 @@ router.post('/',[
 
 // POST EDIT A CREATED COUTSE
 // ONLY THE AUTHOR CAN MODIFY THE COURSE
-router.post('/',(req,res)=>{
+router.put('/',(req,res)=>{
     res.json({
         "msg":"UPDATE A COURSE - CONTROLLER"
     })

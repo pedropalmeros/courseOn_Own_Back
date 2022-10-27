@@ -56,11 +56,22 @@ const zeroStudents = async(courseId, {req, location, paht}) =>{
     }
 }
 
+const isCollectionValid = ( collection = '', validCollections = []) =>{
+    console.log('collection: ', collection);
+    console.log('validCollections: ',validCollections)
+    if( !validCollections.includes(collection)){
+        console.log(`Collection ${collection} is not in ${validCollections}`);
+        throw new Error(`Collection ${collection} is not in ${validCollections}`)
+    }
+    return true;
+}
+
 module.exports = {
     emailExists,
     userExistsById,
     sameUser,
     courseExistsById,
     isAuthorRequest,
-    zeroStudents
+    zeroStudents,
+    isCollectionValid
 }
