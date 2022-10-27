@@ -49,10 +49,21 @@ const deleteUserById = async(req, res = response ) =>{
     })
 }
 
+const getUserById = async (req, res = response) => {
+    const {userId} = req.params;
+    const tempUser = await User.findById(userId);
+    
+    res.json({
+        success: true,
+        user: tempUser
+    })
+}
+
 
 module.exports = {
     getAllUsers,
     createNewUser,
     updateUserById,
-    deleteUserById
+    deleteUserById,
+    getUserById
 }
