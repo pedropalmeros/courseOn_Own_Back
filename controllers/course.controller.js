@@ -1,4 +1,5 @@
 const { request, response } = require('express');
+const cloudinary = require('cloudinary').v2;
 const User = require('../models/user');
 const Course = require('../models/course');
 const { uploadFileProcess } = require('../helpers/uploadValidateFields');
@@ -26,11 +27,8 @@ const getCourseById = async (req, res) => {
 // }
 
 const createCourse = async (req = request, res = response) => {
-  console.log('body', req);
-  const title = req.body.title.toUpperCase();
 
-  const imgBanner = { file: req.files.Image[0] };
-  const imgMinature = { file: req.files.Image[1] };
+  const title = req.body.title.toUpperCase();
   const courseDB = await Course.findOne({ title });
   if (courseDB !== null) {
     return res.status(400).json({
@@ -47,19 +45,29 @@ const createCourse = async (req = request, res = response) => {
     coursesTeach: authorUser.coursesTeach,
   });
 
-  const imgBannerUpload = await uploadFileProcess(imgBanner, undefined, 'imgs');
-  const imgMinatureUpload = await uploadFileProcess(
-    imgMinature,
-    undefined,
-    'imgs'
-  );
-  console.log('imgBanner', imgBannerUpload);
-  console.log('imgMinature', imgMinatureUpload);
+  let imgBannerUrl = '';
+  let imgMinatureUrl = '';
 
+  
+
+  if(!req.files || Object.keys(req.files).length===0){
+    console.log("there are no files attached to the request");
+    console.log("Default Images are going to be set for Banner and minature");
+  }else{
+  const imgBanner =  req.files.Image[0] ;
+  const imgMinature = req.files.Image[1] ;
+
+  const uploadBanner = await cloudinary.uploader.upload(imgBanner.tempFilePath);
+  imgBannerUrl = uploadBanner.secure_url;
+
+  const uploadMiniature = await cloudinary.uploader.upload(imgMinature.tempFilePath);  
+  imgMinatureUrl = uploadMiniature.secure_url;
+  }
+  
   const courseData = {
     title,
-    imgBanner: imgBannerUpload,
-    imgMinature: imgMinatureUpload,
+    imgBanner: imgBannerUrl,
+    imgMinature: imgMinatureUrl,
     user: req.user._id,
   };
   const newCourse = new Course(courseData);

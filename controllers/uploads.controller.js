@@ -1,16 +1,10 @@
 const { response, request } = require('express');
 const fs = require('fs');
-
 const cloudinary = require('cloudinary').v2;
-
-
 const { uploadFileProcess } = require('../helpers/uploadValidateFields');
-
 const { validateUploadReq } = require('../middlewares/validateFile')
-
 const User = require('../models/user');
 const Course = require('../models/course');
-
 const path = require('path');
 
 cloudinary.config(process.env.CLOUDINARY_URL);
