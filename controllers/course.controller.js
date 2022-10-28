@@ -26,9 +26,8 @@ const getCourseById = async (req, res) => {
 // }
 
 const createCourse = async (req = request, res = response) => {
-  console.log('body', req);
   const title = req.body.title.toUpperCase();
-
+  const description = req.body.description;
   const imgBanner = { file: req.files.Image[0] };
   const imgMinature = { file: req.files.Image[1] };
   const courseDB = await Course.findOne({ title });
@@ -53,13 +52,13 @@ const createCourse = async (req = request, res = response) => {
     undefined,
     'imgs'
   );
-  console.log('imgBanner', imgBannerUpload);
-  console.log('imgMinature', imgMinatureUpload);
 
   const courseData = {
     title,
+    description,
     imgBanner: imgBannerUpload,
     imgMinature: imgMinatureUpload,
+
     user: req.user._id,
   };
   const newCourse = new Course(courseData);
