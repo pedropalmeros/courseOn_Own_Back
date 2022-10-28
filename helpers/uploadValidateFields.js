@@ -1,3 +1,4 @@
+const { Console } = require('console');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 
@@ -7,10 +8,15 @@ const uploadFileProcess = (
   addressFile = ''
 ) => {
   return new Promise((resolve, reject) => {
-    const { file } = files;
+    const file2process = files;
+    //console.log('------------- FILE2PROCESSS ---------')
+    console.log(file2process);
 
-    const splittedFileName = file.name.split('.');
+    const splittedFileName = file2process.name.split('.');
     const extension = splittedFileName[splittedFileName.length - 1];
+
+    //console.log('----------- EXTENSION ----------');
+    console.log(extension);
 
     // Validate the extension
     if (!allowedExtensions.includes(extension)) {
@@ -27,13 +33,15 @@ const uploadFileProcess = (
       tempName
     );
 
-    file.mv(uploadPath, (err) => {
-      if (err) {
-        reject(err);
-      }
+    resolve(tempName);
 
-      resolve(tempName);
-    });
+    //file2process.mv(uploadPath, (err) => {
+    //  if (err) {
+    //    reject(err);
+    //  }
+
+    //  resolve(tempName);
+    //});
   });
 };
 
