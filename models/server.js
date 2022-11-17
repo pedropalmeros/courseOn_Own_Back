@@ -12,6 +12,7 @@ class Server {
     this.authPath = '/auth';
     this.coursePath = '/courses';
     this.uploadPath = '/uploads';
+    this.formPath = '/forms';
 
     //Data Base connection
     this.dataBaseConnect();
@@ -56,6 +57,7 @@ class Server {
     this.app.use(this.authPath, require('../routes/auth.route'));
     this.app.use(this.coursePath, require('../routes/course.route'));
     this.app.use(this.uploadPath, require('../routes/upload.route'));
+    this.app.use(this.formPath, require('../routes/form.route'));
   }
 
   listen() {

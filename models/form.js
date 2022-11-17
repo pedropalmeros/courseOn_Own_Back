@@ -20,6 +20,42 @@ const FormSchema = Schema({
             },
           ],
         },
+        answers2: {
+          type: [
+            {
+              text: {
+                type: String,
+              },
+              isCorrect: {
+                type: Boolean,
+              },
+            },
+          ],
+        },
+        answers3: {
+          type: [
+            {
+              text: {
+                type: String,
+              },
+              isCorrect: {
+                type: Boolean,
+              },
+            },
+          ],
+        },
+        answers4: {
+          type: [
+            {
+              text: {
+                type: String,
+              },
+              isCorrect: {
+                type: Boolean,
+              },
+            },
+          ],
+        },
       },
     ],
   },
