@@ -27,15 +27,10 @@ const getCourseById = async (req, res) => {
 // }
 
 const createCourse = async (req = request, res = response) => {
-<<<<<<< HEAD
   const title = req.body.title.toUpperCase();
   const description = req.body.description;
   const imgBanner = { file: req.files.Image[0] };
   const imgMinature = { file: req.files.Image[1] };
-=======
-
-  const title = req.body.title.toUpperCase();
->>>>>>> 2c251a679a99748f46dc5bb1b9ff1d2968bd0f56
   const courseDB = await Course.findOne({ title });
   if (courseDB !== null) {
     return res.status(400).json({
@@ -52,45 +47,37 @@ const createCourse = async (req = request, res = response) => {
     coursesTeach: authorUser.coursesTeach,
   });
 
-<<<<<<< HEAD
   const imgBannerUpload = await uploadFileProcess(imgBanner, undefined, 'imgs');
   const imgMinatureUpload = await uploadFileProcess(
     imgMinature,
     undefined,
     'imgs'
   );
-=======
-  let imgBannerUrl = '';
-  let imgMinatureUrl = '';
 
-  
->>>>>>> 2c251a679a99748f46dc5bb1b9ff1d2968bd0f56
+  if (!req.files || Object.keys(req.files).length === 0) {
+    console.log('there are no files attached to the request');
+    console.log('Default Images are going to be set for Banner and minature');
+  } else {
+    const imgBanner = req.files.Image[0];
+    const imgMinature = req.files.Image[1];
 
-  if(!req.files || Object.keys(req.files).length===0){
-    console.log("there are no files attached to the request");
-    console.log("Default Images are going to be set for Banner and minature");
-  }else{
-  const imgBanner =  req.files.Image[0] ;
-  const imgMinature = req.files.Image[1] ;
+    const uploadBanner = await cloudinary.uploader.upload(
+      imgBanner.tempFilePath
+    );
+    imgBannerUrl = uploadBanner.secure_url;
 
-  const uploadBanner = await cloudinary.uploader.upload(imgBanner.tempFilePath);
-  imgBannerUrl = uploadBanner.secure_url;
-
-  const uploadMiniature = await cloudinary.uploader.upload(imgMinature.tempFilePath);  
-  imgMinatureUrl = uploadMiniature.secure_url;
+    const uploadMiniature = await cloudinary.uploader.upload(
+      imgMinature.tempFilePath
+    );
+    imgMinatureUrl = uploadMiniature.secure_url;
   }
-  
+
   const courseData = {
     title,
-<<<<<<< HEAD
     description,
     imgBanner: imgBannerUpload,
     imgMinature: imgMinatureUpload,
 
-=======
-    imgBanner: imgBannerUrl,
-    imgMinature: imgMinatureUrl,
->>>>>>> 2c251a679a99748f46dc5bb1b9ff1d2968bd0f56
     user: req.user._id,
   };
   const newCourse = new Course(courseData);
