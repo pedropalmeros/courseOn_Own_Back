@@ -16,8 +16,9 @@ const getForm = async (request, response) => {
 };
 
 const getFormById = async (req, res) => {
-  const { formId } = req.params;
-  const formById = await Course.findById(formId);
+  const { id } = req.params;
+
+  const formById = await Form.findById(id);
 
   return res.status(200).json({
     status: true,
@@ -31,4 +32,4 @@ const createForm = (formData, formId) => {
   return form;
 };
 
-module.exports = { createForm, getFormById };
+module.exports = { createForm, getFormById, getForm };
