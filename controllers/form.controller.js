@@ -26,9 +26,10 @@ const getFormById = async (req, res) => {
   });
 };
 
-const createForm = (formData, formId) => {
-  formData.formId = formId;
-  const form = Form.create(formData);
+const createForm = async (formData) => {
+  console.log('formData', formData);
+  const form = await Form.create(formData);
+  console.log('form', form);
   return form;
 };
 

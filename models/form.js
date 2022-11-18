@@ -20,49 +20,30 @@ const FormSchema = Schema({
             },
           ],
         },
-        answers2: {
-          type: [
-            {
-              text: {
-                type: String,
-              },
-              isCorrect: {
-                type: Boolean,
-              },
-            },
-          ],
-        },
-        answers3: {
-          type: [
-            {
-              text: {
-                type: String,
-              },
-              isCorrect: {
-                type: Boolean,
-              },
-            },
-          ],
-        },
-        answers4: {
-          type: [
-            {
-              text: {
-                type: String,
-              },
-              isCorrect: {
-                type: Boolean,
-              },
-            },
-          ],
-        },
       },
     ],
   },
-
-  courseId: {
-    type: String,
-  },
+  // questions: {
+  //   type: [
+  //     {
+  //       title: {
+  //         type: String,
+  //       },
+  //     },
+  //   ],
+  // },
+  // answers: {
+  //   type: [
+  //     {
+  //       text: {
+  //         type: String,
+  //       },
+  //       isCorrect: {
+  //         type: Boolean,
+  //       },
+  //     },
+  //   ],
+  // },
 });
 
 FormSchema.methods.toJSON = function () {
