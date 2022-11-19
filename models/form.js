@@ -23,27 +23,9 @@ const FormSchema = Schema({
       },
     ],
   },
-  // questions: {
-  //   type: [
-  //     {
-  //       title: {
-  //         type: String,
-  //       },
-  //     },
-  //   ],
-  // },
-  // answers: {
-  //   type: [
-  //     {
-  //       text: {
-  //         type: String,
-  //       },
-  //       isCorrect: {
-  //         type: Boolean,
-  //       },
-  //     },
-  //   ],
-  // },
+  courseId: {
+    type: String
+  }
 });
 
 FormSchema.methods.toJSON = function () {
